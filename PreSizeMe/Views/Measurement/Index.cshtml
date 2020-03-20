@@ -1,0 +1,294 @@
+﻿@using PreSizeMe.Data
+@model PreSizeMe.Models.MeasurementViewModels.IndexViewModel
+@{
+    ViewData["Title"] = "Edit Measurements";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    ViewData["Title"] = Model.Name;
+    String Suffix = "cm";
+    Boolean male;
+
+
+    if (Model.Measurement.GenderId != 1)
+    {
+        male = false;
+
+    }
+    else
+    {
+        male = true;
+
+    }
+
+
+}
+<style>
+    #Body {
+        filter: grayscale(100%);
+    }
+    #Line {
+        position: absolute;
+        display: block;
+        display: none;
+        background: #427498;
+        z-index: 1;
+    }
+    #Info {
+        position: fixed;
+        top: 165px;
+        display: none;
+    }
+    #Icon {
+        color: #427498;
+        top: 100px;
+        font-size: x-large;
+    }
+    #Picture {
+        position: center;
+        top: 165px;
+
+    }
+</style>
+
+
+
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<div class="row">
+    <div class="col-md-4">
+        <div>
+         <div id="Picture">
+            <div id="Line">
+            </div>
+              <div id="Body">
+               @{
+                    if (!male)
+                    {
+                        <img src="~/images/female.png" class="mx-auto d-block" alt="body" />
+                    }
+                    else
+                    {
+                        <img src="~/images/male.png" class="mx-auto d-block" width="255" height="860" alt="body2" />
+                    }
+                }
+                </div>
+         </div>
+        </div>
+
+    </div>
+    <div class="col-md-4">
+        <form method="post">
+            <h4>Your measurements in @Suffix.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Measurement.Height"></label>
+                <input asp-for="Measurement.Height" class="form-control" id="Height" />
+                <span asp-validation-for="Measurement.Height" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Measurement.Head"></label>
+                <input asp-for="Measurement.Head" class="form-control" id="Head" />
+                <span asp-validation-for="Measurement.Head" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Measurement.Neck"></label>
+                <input asp-for="Measurement.Neck" class="form-control" id="Neck" />
+                <span asp-validation-for="Measurement.Neck" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Measurement.Sleeve"></label>
+                <input asp-for="Measurement.Sleeve " class="form-control" id="Sleeve" />
+                <span asp-validation-for="Measurement.Sleeve" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Measurement.Hand"></label>
+                <input asp-for="Measurement.Hand" class="form-control" id="Hand" />
+                <span asp-validation-for="Measurement.Hand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Measurement.Upperbody"></label>
+                <input asp-for="Measurement.Upperbody" class="form-control" id="Upperbody" />
+                <span asp-validation-for="Measurement.Upperbody" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Measurement.Chest"></label>
+                <input asp-for="Measurement.Chest" class="form-control" id="Chest" />
+                <span asp-validation-for="Measurement.Chest" class="text-danger"></span>
+            </div>
+            @if (!male)
+            {
+                <div class="form-group">
+                    <label asp-for="Measurement.BelowChest"></label>
+                    <input asp-for="Measurement.BelowChest" class="form-control" id="BelowChest" />
+                    <span asp-validation-for="Measurement.BelowChest" class="text-danger"></span>
+                </div>
+
+            }
+            <div class="form-group">
+                <label asp-for="Measurement.Waist"></label>
+                <input asp-for="Measurement.Waist" class="form-control" id="Waist" />
+                <span asp-validation-for="Measurement.Waist" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Measurement.Hips"></label>
+                <input asp-for="Measurement.Hips" class="form-control" id="Hips" />
+                <span asp-validation-for="Measurement.Hips" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Measurement.Thigh"></label>
+                <input asp-for="Measurement.Thigh" class="form-control" id="Thigh" />
+                <span asp-validation-for="Measurement.Thigh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Measurement.Inseam"></label>
+                <input asp-for="Measurement.Inseam" class="form-control" id="Inseam" />
+                <span asp-validation-for="Measurement.Inseam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Measurement.Feet"></label>
+                <input asp-for="Measurement.Feet" class="form-control" id="Feet" />
+                <span asp-validation-for="Measurement.Feet" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-default">Update Measurements</button>
+        </form>
+    </div>
+    <div class="col-md-4 d-none d-md-block">
+        <div class="card" id="Info">
+            <div class="card-header">
+                <h5>
+                    <i aria-hidden="true" class="fa fa-info-circle" id="Icon"></i>
+                    <strong id="InfoTitle"> </strong>
+                </h5>
+            </div>
+            <div class="card-body text-center" id="InfoBody">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+@section Scripts {
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $('#Height').on('focus', function () {
+                $('#Info').slideDown(75);
+                $('#Line').show();
+                $('#Line').css({
+                    'top': '32px',
+                    'height': '803px',
+                    'left': '50%',
+                    'width': '3px'
+                });
+                $('#InfoTitle').html('Height');
+                $('#InfoBody').html('<p>Easiest way to measure your height is to stand up straight with your back flat against a wall. Keep your feet together and your arms along your side.</p>');
+            });
+            $('#Head').on('focus', function () {
+                $('#Info').slideDown(75);
+                $('#InfoTitle').html('Head');
+                $('#InfoBody').html('<p>Head circumfrence should be measured around the largest part of your head about 1 cm above your eyebrows.</p>');
+                $('#Line').show();
+                $('#Line').css({
+                    'top': '60px',
+                    'height': '3px',
+                    'left': '40.5%',
+                    'width': '73px'
+                });
+            });
+            $('#Neck').on('focus', function () {
+                $('#Info').slideDown(75);
+                $('#InfoTitle').html('Neck');
+                $('#InfoBody').html('<p>To measure the circumfrence of your neck its best to start 1 cm above where your neck meets your shoulders. </p>');
+                $('#Line').show();
+                $('#Line').css({
+                    'top': '145px',
+                    'height': '3px',
+                    'left': '44%',
+                    'width': '46px'
+                });
+            });
+            $('#Sleeve').on('focus', function () {
+                $('#Info').slideDown(75);
+                $('#InfoTitle').html('Sleeve');
+                $('#InfoBody').html('<p>The best way to measure your sleeve...</p>');
+            });
+            $('#Hand').on('focus', function () {
+                $('#Info').slideDown(75);
+                $('#InfoTitle').html('Hand');
+                $('#InfoBody').html('<p>The best way to measure your hand...</p>');
+            });
+            $('#Upperbody').on('focus', function () {
+                $('#Info').slideDown(75);
+                $('#InfoTitle').html('Upper body');
+                $('#InfoBody').html('<p>The best way to measure your upper body...</p>');
+            });
+            $('#Chest').on('focus', function () {
+                $('#Info').slideDown(75);
+                $('#InfoTitle').html('Chest');
+                $('#InfoBody').html('<p>To measure your chest circumfrence stand with your arms loosely to your side. Then measure around the fullest part of your chest.</p>');
+                $('#Line').show();
+                $('#Line').css({
+                    'top': '225px',
+                    'height': '3px',
+                    'left': '33%',
+                    'width': '133px'
+                });
+            });
+            $('#BelowChest').on('focus', function () {
+                $('#Info').slideDown(75);
+                $('#InfoTitle').html('BelowChest');
+                $('#InfoBody').html('<p>The best way to measure your below chest...</p>');
+            });
+            $('#Waist').on('focus', function () {
+                $('#Info').slideDown(75);
+                $('#InfoTitle').html('Waist');
+                $('#InfoBody').html('<p>To measure you natural waistline measure the narrowest part of your torso. Its located between your hips and your ribcage often above the bellybutton. </p>');
+                $('#Line').show();
+                $('#Line').css({
+                    'top': '340px',
+                    'height': '3px',
+                    'left': '36.5%',
+                    'width': '104px'
+                });
+            });
+            $('#Hips').on('focus', function () {
+                $('#Info').slideDown(75);
+                $('#InfoTitle').html('Hips');
+                $('#InfoBody').html('<p>The best way to measure your hips...</p>');
+            });
+            $('#Thigh').on('focus', function () {
+                $('#Info').slideDown(75);
+                $('#InfoTitle').html('Thigh');
+                $('#InfoBody').html('<p> The best way to measure your thigh...</p>');
+            });
+            $('#Inseam').on('focus', function () {
+                $('#Info').slideDown(75);
+                $('#InfoTitle').html('Inseam');
+                $('#InfoBody').html('<p>To accuratly measure your inseam you should start by standing with your feet 15cm apart. Then measure the length of your leg starting from the bottom of your foot to your crotch.</p > ');
+                $('#Line').show();
+                $('#Line').css({
+                    'top': '448px',
+                    'height': '380px',
+                    'left': '50%',
+                    'width': '3px'
+                });
+            });
+            $('#Feet').on('focus', function () {
+                $('#Info').slideDown(75);
+                $('#InfoTitle').html('Feet');
+                $('#InfoBody').html('<p> The best way to measure your feet...</p>');
+            });
+
+
+        });
+    </script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+

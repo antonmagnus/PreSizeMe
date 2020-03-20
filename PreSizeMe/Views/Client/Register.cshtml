@@ -1,0 +1,49 @@
+﻿@model PreSizeMe.Models.ClientViewModels.RegisterViewModel;
+@{
+    ViewData["Title"] = "Register your application";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2 id="Title">@ViewData["Title"] </h2>
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DisplayName"></label>
+                <input asp-for="DisplayName" class="form-control" />
+                <span asp-validation-for="DisplayName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClientId"></label>
+                <input asp-for="ClientId" class="form-control" />
+                <span asp-validation-for="ClientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClientSecret"></label>
+                <input asp-for="ClientSecret" class="form-control" />
+                <span asp-validation-for="ClientSecret" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostLogoutRedirectUris"></label>
+                <input asp-for="PostLogoutRedirectUris" class="form-control" />
+                <span asp-validation-for="PostLogoutRedirectUris" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RedirectUris"></label>
+                <input asp-for="RedirectUris" class="form-control" />
+                <span asp-validation-for="RedirectUris" class="text-danger"></span>
+            </div>
+
+
+            <button type="submit" class="btn btn-default">Submit Application</button>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
